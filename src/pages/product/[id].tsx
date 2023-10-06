@@ -1,26 +1,16 @@
-import { stripe } from '@/services/stripe'
+import { useState } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { stripe } from '@/services/stripe'
+import { ProductProps } from '@/Interfaces'
 import Stripe from 'stripe'
+import Image from 'next/image'
+import axios from 'axios'
 import {
   ImageContainer,
   ProductContainer,
   ProductDetails,
 } from '@/styles/pages/product'
-import { useRouter } from 'next/router'
-import axios from 'axios'
-import { useState } from 'react'
-
-interface ProductProps {
-  product: {
-    id: string
-    name: string
-    imageUrl: string
-    price: string
-    description: string
-    defaultPriceId: string
-  }
-}
 
 export default function Product({ product }: ProductProps) {
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
@@ -63,7 +53,7 @@ export default function Product({ product }: ProductProps) {
         <p>{product.description}</p>
 
         <button disabled={isCreatingCheckoutSession} onClick={handleBuyButton}>
-          Comprar agora
+          Colocar na sacola
         </button>
       </ProductDetails>
     </ProductContainer>
