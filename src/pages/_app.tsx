@@ -6,6 +6,7 @@ import { Roboto } from 'next/font/google'
 import { Container, Header } from '../styles/pages/app'
 import { ProductContextProvider } from '@/context/ProductContext'
 import CartButton from '@/components/CartButton'
+import Link from 'next/link'
 
 const roboto = Roboto({
   weight: ['400', '700'],
@@ -21,7 +22,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <Container>
         <ProductContextProvider>
           <Header>
-            <Image src={logoImg.src} width="130" height="52" alt="" />
+            <Link href="/">
+              <Image src={logoImg.src} width="130" height="52" alt="" />
+            </Link>
             <CartButton />
           </Header>
           <Component {...pageProps} />

@@ -1,10 +1,10 @@
+import Image from 'next/image'
+import Link from 'next/link'
+import Stripe from 'stripe'
 import { SuccessProps } from '@/Interfaces'
 import { stripe } from '@/services/stripe'
 import { ImageContainer, SuccessContainer } from '@/styles/pages/sucess'
 import { GetServerSideProps } from 'next'
-import Image from 'next/image'
-import Link from 'next/link'
-import Stripe from 'stripe'
 
 export default function Success({ costumerName, product }: SuccessProps) {
   return (

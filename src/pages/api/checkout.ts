@@ -7,6 +7,8 @@ export default async function handler(
 ) {
   const { priceId } = req.body
 
+  const priceIdList = [{ priceId }]
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed.' })
   }
@@ -22,12 +24,16 @@ export default async function handler(
     success_url: successUrl,
     cancel_url: cancelUrl,
     mode: 'payment',
-    line_items: [
-      {
-        price: priceId,
-        quantity: 1,
-      },
-    ],
+    // line_items: [
+    //   {
+    //     price: priceId,
+    //     quantity: 1,
+    //   },
+    // ],
+    line_items: priceIdList.map(({ priceId }) => ({
+      price: priceId,
+      quantity: 1,
+    })),
   })
 
   return res.status(201).json({

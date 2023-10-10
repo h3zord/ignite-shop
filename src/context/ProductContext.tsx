@@ -15,7 +15,13 @@ export function ProductContextProvider({ children }: IProductProviderProps) {
   }
 
   const addProductToCart = (data: IProductData) => {
-    setProductCartList((prevState) => [...prevState, data])
+    const productAlreadyExists = productCartList.some(
+      ({ id }) => id === data.id,
+    )
+
+    if (!productAlreadyExists) {
+      setProductCartList((prevState) => [...prevState, data])
+    }
   }
 
   const removeProductFromCart = (id: string) => {
