@@ -1,15 +1,15 @@
+import Stripe from 'stripe'
+import Image from 'next/image'
+import Link from 'next/link'
 import { HomeContainer, Product } from '@/styles/pages/home'
 import { useKeenSlider } from 'keen-slider/react'
 import { GetStaticProps } from 'next'
 import { stripe } from '@/services/stripe'
 import { Handbag } from '@phosphor-icons/react'
 import { HomeProps } from '@/Interfaces'
-import Stripe from 'stripe'
-import Image from 'next/image'
-import Link from 'next/link'
-import 'keen-slider/keen-slider.min.css'
 import { useContext } from 'react'
 import { ProductContext } from '@/context/ProductContext'
+import 'keen-slider/keen-slider.min.css'
 
 export default function Home({ products }: HomeProps) {
   const [sliderRef] = useKeenSlider({
@@ -25,21 +25,21 @@ export default function Home({ products }: HomeProps) {
     <HomeContainer ref={sliderRef} className="keen-slider">
       {products.map((product) => {
         return (
-          <Link href={`/product/${product.id}`} key={product.id}>
-            <Product className="keen-slider__slide">
+          <Product className="keen-slider__slide" key={product.id}>
+            <Link href={`/product/${product.id}`}>
               <Image src={product.imageUrl} width={520} height={480} alt="" />
+            </Link>
 
-              <footer>
-                <div>
-                  <strong>{product.name}</strong>
-                  <span>{product.price}</span>
-                </div>
-                <button onClick={() => addProductToCart(product)}>
-                  <Handbag size={36} weight="bold" color="#ffffff" />
-                </button>
-              </footer>
-            </Product>
-          </Link>
+            <footer>
+              <div>
+                <strong>{product.name}</strong>
+                <span>{product.price}</span>
+              </div>
+              <button onClick={() => addProductToCart(product)}>
+                <Handbag size={36} weight="bold" color="#ffffff" />
+              </button>
+            </footer>
+          </Product>
         )
       })}
     </HomeContainer>

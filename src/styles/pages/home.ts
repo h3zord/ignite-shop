@@ -11,16 +11,15 @@ export const HomeContainer = styled('main', {
 export const Product = styled('div', {
   background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
   borderRadius: 8,
-  cursor: 'pointer',
   position: 'relative',
   overflow: 'hidden',
-
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
 
   img: {
     objectFit: 'cover',
+    cursor: 'pointer',
   },
 
   footer: {
@@ -29,6 +28,7 @@ export const Product = styled('div', {
     left: '0.25rem',
     right: '0.25rem',
     padding: '1.25rem',
+    cursor: 'default',
 
     borderRadius: 6,
 
