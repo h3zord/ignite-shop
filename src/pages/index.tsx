@@ -10,6 +10,7 @@ import { HomeProps } from '@/Interfaces'
 import { useContext } from 'react'
 import { ProductContext } from '@/context/ProductContext'
 import 'keen-slider/keen-slider.min.css'
+import { formatPrice } from '@/utils'
 
 export default function Home({ products }: HomeProps) {
   const [sliderRef] = useKeenSlider({
@@ -33,7 +34,7 @@ export default function Home({ products }: HomeProps) {
             <footer>
               <div>
                 <strong>{product.name}</strong>
-                <span>{product.price}</span>
+                <span>{formatPrice(product.price)}</span>
               </div>
               <button onClick={() => addProductToCart(product)}>
                 <Handbag size={36} weight="bold" color="#ffffff" />
@@ -58,10 +59,7 @@ export const getStaticProps: GetStaticProps = async () => {
       id: product.id,
       name: product.name,
       imageUrl: product.images[0],
-      price: new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-      }).format((price.unit_amount as number) / 100),
+      price: Number(price.unit_amount / 100),
       defaultPriceId: price.id,
     }
   })

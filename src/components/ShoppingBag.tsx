@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { X } from '@phosphor-icons/react'
 import { ProductContext } from '@/context/ProductContext'
 import { useContext } from 'react'
+import { formatPrice } from '@/utils'
 import {
   Close,
   Content,
@@ -16,7 +17,15 @@ import {
 } from '@/styles/components/ShoppingBag'
 
 export function ShoppingBag() {
-  const { productCartList } = useContext(ProductContext)
+  const { productCartList, removeProductFromCart } = useContext(ProductContext)
+
+  const sumTotalPrice = () => {
+    const totalPrice = productCartList.reduce((acc, product) => {
+      return (acc += product.price)
+    }, 0)
+
+    return formatPrice(totalPrice)
+  }
 
   return (
     <Dialog.Portal>
@@ -36,8 +45,10 @@ export function ShoppingBag() {
 
               <ProductDetails>
                 <p>{product.name}</p>
-                <span>{product.price}</span>
-                <button>Remover</button>
+                <span>{formatPrice(product.price)}</span>
+                <button onClick={() => removeProductFromCart(product.id)}>
+                  Remover
+                </button>
               </ProductDetails>
             </div>
           ))}
@@ -45,13 +56,18 @@ export function ShoppingBag() {
 
         <QuantityAndPrice>
           <p>Quantidade</p>
-          <h5>{productCartList.length} itens</h5>
+          <h5>
+            {productCartList.length}{' '}
+            {productCartList.length === 1 ? 'item' : 'itens'}
+          </h5>
 
           <span>Valor total</span>
-          <h3>R$ 120,00</h3>
+          <h3>{sumTotalPrice()}</h3>
         </QuantityAndPrice>
 
-        <FinalizePurchase>Finalizar compra</FinalizePurchase>
+        <FinalizePurchase disabled={!productCartList.length}>
+          Finalizar compra
+        </FinalizePurchase>
       </Content>
     </Dialog.Portal>
   )

@@ -11,6 +11,7 @@ import {
   ProductContainer,
   ProductDetails,
 } from '@/styles/pages/product'
+import { formatPrice } from '@/utils'
 
 export default function Product({ product }: ProductProps) {
   // const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
@@ -50,7 +51,7 @@ export default function Product({ product }: ProductProps) {
 
       <ProductDetails>
         <h1>{product.name}</h1>
-        <span>{product.price}</span>
+        <span>{formatPrice(product.price)}</span>
 
         <p>{product.description}</p>
 
@@ -102,10 +103,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
         id: product.id,
         name: product.name,
         imageUrl: product.images[0],
-        price: new Intl.NumberFormat('pt-BR', {
-          style: 'currency',
-          currency: 'BRL',
-        }).format((price.unit_amount as number) / 100),
+        price: Number(price.unit_amount / 100),
         description: product.description,
         defaultPriceId: price.id,
       },

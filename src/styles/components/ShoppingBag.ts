@@ -34,11 +34,11 @@ export const Close = styled(Dialog.Close, {
 })
 
 export const Title = styled(Dialog.Title, {
-  fontSize: '$lg',
+  fontSize: '$xl',
   color: '$gray100',
   fontWeight: 'bold',
   lineHeight: '1.6',
-  marginTop: '1.5rem',
+  marginTop: '1rem',
   fontFamily: 'Roboto',
 })
 
@@ -145,7 +145,12 @@ export const FinalizePurchase = styled('button', {
   border: 'none',
   cursor: 'pointer',
 
-  '&:hover': {
+  '&:hover:enabled': {
     background: '$green300',
+  },
+
+  '&:disabled': {
+    cursor: 'not-allowed',
+    opacity: '0.5',
   },
 })

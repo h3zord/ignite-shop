@@ -5,7 +5,7 @@ export interface HomeProps {
     id: string
     name: string
     imageUrl: string
-    price: string
+    price: number
     defaultPriceId: string
   }[]
 }
@@ -23,7 +23,7 @@ export interface ProductProps {
     id: string
     name: string
     imageUrl: string
-    price: string
+    price: number
     description: string
     defaultPriceId: string
   }
@@ -37,7 +37,7 @@ export interface IProductData {
   id: string
   name: string
   imageUrl: string
-  price: string
+  price: number
   defaultPriceId: string
 }
 
