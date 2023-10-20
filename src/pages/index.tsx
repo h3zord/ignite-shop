@@ -9,8 +9,8 @@ import { Handbag } from '@phosphor-icons/react'
 import { HomeProps } from '@/Interfaces'
 import { useContext } from 'react'
 import { ProductContext } from '@/context/ProductContext'
-import 'keen-slider/keen-slider.min.css'
 import { formatPrice } from '@/utils'
+import 'keen-slider/keen-slider.min.css'
 
 export default function Home({ products }: HomeProps) {
   const [sliderRef] = useKeenSlider({

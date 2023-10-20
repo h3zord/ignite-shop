@@ -12,10 +12,7 @@ export interface HomeProps {
 
 export interface SuccessProps {
   costumerName: string
-  product: {
-    name: string
-    imageUrl: string
-  }
+  imageUrlList: string[]
 }
 
 export interface ProductProps {

@@ -1,8 +1,9 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import Image from 'next/image'
+import axios from 'axios'
 import { X } from '@phosphor-icons/react'
 import { ProductContext } from '@/context/ProductContext'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { formatPrice } from '@/utils'
 import {
   Close,
@@ -19,12 +20,35 @@ import {
 export function ShoppingBag() {
   const { productCartList, removeProductFromCart } = useContext(ProductContext)
 
+  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
+    useState(false)
+
   const sumTotalPrice = () => {
     const totalPrice = productCartList.reduce((acc, product) => {
       return (acc += product.price)
     }, 0)
 
     return formatPrice(totalPrice)
+  }
+
+  async function handleBuyButton() {
+    try {
+      setIsCreatingCheckoutSession(true)
+
+      const response = await axios.post('/api/checkout', {
+        priceIdList: productCartList.map(
+          ({ defaultPriceId }) => defaultPriceId,
+        ),
+      })
+
+      const { checkoutUrl } = response.data
+
+      window.location.href = checkoutUrl
+    } catch (err) {
+      setIsCreatingCheckoutSession(false)
+
+      alert('Falha ao redirecionar ao checkout!')
+    }
   }
 
   return (
@@ -65,7 +89,10 @@ export function ShoppingBag() {
           <h3>{sumTotalPrice()}</h3>
         </QuantityAndPrice>
 
-        <FinalizePurchase disabled={!productCartList.length}>
+        <FinalizePurchase
+          disabled={!productCartList.length || isCreatingCheckoutSession}
+          onClick={handleBuyButton}
+        >
           Finalizar compra
         </FinalizePurchase>
       </Content>

@@ -6,38 +6,17 @@ import { useRouter } from 'next/router'
 import { stripe } from '@/services/stripe'
 import { ProductProps } from '@/Interfaces'
 import { ProductContext } from '@/context/ProductContext'
+import { formatPrice } from '@/utils'
 import {
   ImageContainer,
   ProductContainer,
   ProductDetails,
 } from '@/styles/pages/product'
-import { formatPrice } from '@/utils'
 
 export default function Product({ product }: ProductProps) {
-  // const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
-  //   useState(false)
-
   const { addProductToCart } = useContext(ProductContext)
 
   const { isFallback } = useRouter()
-
-  // async function handleBuyButton() {
-  //   try {
-  //     setIsCreatingCheckoutSession(true)
-
-  //     const response = await axios.post('/api/checkout', {
-  //       priceId: product.defaultPriceId,
-  //     })
-
-  //     const { checkoutUrl } = response.data
-
-  //     window.location.href = checkoutUrl
-  //   } catch (err) {
-  //     setIsCreatingCheckoutSession(false)
-
-  //     alert('Falha ao redirecionar ao checkout!')
-  //   }
-  // }
 
   if (isFallback) {
     return <p>Loading...</p>
@@ -56,8 +35,6 @@ export default function Product({ product }: ProductProps) {
         <p>{product.description}</p>
 
         <button
-          /* disabled={isCreatingCheckoutSession} */
-          /* onClick={handleBuyButton} */
           onClick={() =>
             addProductToCart({
               id: product.id,
